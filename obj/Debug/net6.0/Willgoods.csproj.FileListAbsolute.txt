@@ -31,3 +31,5 @@ d:\Project\.NET\Willgoods\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemor
 d:\Project\.NET\Willgoods\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
 d:\Project\.NET\Willgoods\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
 d:\Project\.NET\Willgoods\bin\Debug\net6.0\System.Diagnostics.DiagnosticSource.dll
+D:\Project\.NET\Willgoods\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Versioning.dll
+D:\Project\.NET\Willgoods\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer.dll
