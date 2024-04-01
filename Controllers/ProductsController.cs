@@ -1,4 +1,5 @@
 // using HPlusSport.API.Models;
+using System.Reflection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,7 @@ namespace Willgoods.API.Controllers
         {
             IQueryable<Product> products = _context.Products;
 
+            //Filtering
             if (queryParameters.MinPrice != null)
             {
                 products = products.Where(
@@ -39,6 +41,43 @@ namespace Willgoods.API.Controllers
                 );
             }
 
+            //Advanced Search
+            if (!string.IsNullOrEmpty(queryParameters.SearchTerm))
+            {
+                products = products.Where(
+                    p => p.Sku.ToLower().Contains(queryParameters.SearchTerm.ToLower()) ||
+                        p.Name.ToLower().Contains(queryParameters.SearchTerm.ToLower()));
+            }
+
+            //Searching
+            if (!string.IsNullOrEmpty(queryParameters.Sku))
+            {
+                products = products.Where(
+                    p => p.Sku == queryParameters.Sku
+                );
+            }
+
+            if (!string.IsNullOrEmpty(queryParameters.Name))
+            {
+                products = products.Where(
+                    p => p.Name.ToLower().Contains(
+                    queryParameters.Name.ToLower()
+                    ) 
+                );
+            }
+
+            //Sorting
+            if (!string.IsNullOrEmpty(queryParameters.SortBy))
+            {
+                if (typeof(Product).GetProperty(queryParameters.SortBy) != null )
+                {
+                    products = products.OrderByCustom(
+                    queryParameters.SortBy,
+                    queryParameters.SortOrder);
+                }
+            }
+
+            //Paginating
             products = products
                 .Skip(queryParameters.Size * (queryParameters.Page - 1))
                 .Take(queryParameters.Size);
